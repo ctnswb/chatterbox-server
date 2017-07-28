@@ -21,8 +21,9 @@ var ip = '127.0.0.1';
 // The function we pass to http.createServer will be used to handle all
 // incoming requests.
 //
+var handleRequest = require('./request-handler.js');
 // After creating the server, we will tell it to listen on the given port and IP. */
-var server = http.createServer(handleRequest);
+var server = http.createServer(handleRequest.requestHandler);
 console.log('Listening on http://' + ip + ':' + port);
 server.listen(port, ip);
 
@@ -38,4 +39,3 @@ server.listen(port, ip);
 // server.listen() will continue running as long as there is the
 // possibility of serving more requests. To stop your server, hit
 // Ctrl-C on the command line.
-
