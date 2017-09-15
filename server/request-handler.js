@@ -10,8 +10,9 @@ var headers = {
   'Content-Type':'application/json'
 };
 
-var requestHandler = function(request, response) {
+var requestHandler = (request, response) => {
   console.log('Serving request type ' + request.method + ' for url ' + request.url);
+
   var urlObj = require('url').parse(request.url, true);
 
   if (request.method === 'GET') {
@@ -21,29 +22,28 @@ var requestHandler = function(request, response) {
     }
     response.writeHead(statusCode, headers);
     response.end(JSON.stringify(data));
-  } else if (request.method === 'POST'){
+  } else if (request.method === 'POST') {
     var rawData = "";
     if (urlObj.pathname === '/classes/messages' || urlObj.pathname === '/classes/room') {
       request.on('data', (chunk) => {
-        rawData+=chunk;
+        rawData += chunk;
       });
-      request.on('end', ()=>{
+      request.on('end', () => {
         var message = JSON.parse(rawData);
         message.objectId = ids;
         ids++;
         data.results.push(message);
         response.writeHead(201, headers);
-        response.end();
+        response.end(JSON.stringify(message));
       });
       request.on('error', (err) => {
         console.log(error(err));
-      })
+      });
     }
-  } else if (request.method === 'OPTIONS'){
+  } else if (request.method === 'OPTIONS') {
     response.writeHead(200, headers);
     response.end(JSON.stringify(data));
   }
-
 };
 
 
