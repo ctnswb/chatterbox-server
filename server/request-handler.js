@@ -7,7 +7,7 @@ var headers = {
   'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
   'access-control-allow-headers': 'content-type, accept',
   'access-control-max-age': 10, // Seconds.
-  'Content-Type':'application/json'
+  'Content-Type': 'application/json'
 };
 
 var requestHandler = (request, response) => {
@@ -17,13 +17,13 @@ var requestHandler = (request, response) => {
 
   if (request.method === 'GET') {
     var statusCode = 200;
-    if (urlObj.pathname !== '/classes/messages' && urlObj.pathname !=='/classes/room') {
+    if (urlObj.pathname !== '/classes/messages' && urlObj.pathname !== '/classes/room') {
       statusCode = 404;
     }
     response.writeHead(statusCode, headers);
     response.end(JSON.stringify(data));
   } else if (request.method === 'POST') {
-    var rawData = "";
+    var rawData = '';
     if (urlObj.pathname === '/classes/messages' || urlObj.pathname === '/classes/room') {
       request.on('data', (chunk) => {
         rawData += chunk;

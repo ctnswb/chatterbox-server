@@ -64,7 +64,7 @@ var app = {
       contentType: 'application/json',
       success: function(data) {
         // Don't bother if we have nothing to work with
-        if (!data.results || !data.results.length) {  app.stopSpinner();return; }
+        if (!data.results || !data.results.length) { app.stopSpinner(); return; }
 
         // Store messages for caching later
         app.messages = data.results;
